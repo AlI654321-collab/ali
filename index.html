@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -168,7 +168,7 @@
         }
     </style>
 </head>
- <body>
+<body>
     <div class="container">
         <div class="header">
             <h1>محاسبات تاسیسات</h1>
@@ -225,8 +225,8 @@
                     <div id="pump-power-result" class="result"></div>
                 </div>
             </div>
-        </div>       
- <!-- تب محاسبات حرارتی -->
+        </div>
+                <!-- تب محاسبات حرارتی -->
         <div id="heating" class="tab-content" style="display: none;">
             <div class="grid">
                 <!-- محاسبه بار حرارتی -->
@@ -306,8 +306,9 @@
                     <div id="radiator-result" class="result"></div>
                 </div>
             </div>
-        </div>      
- <!-- تب تهویه مطبوع -->
+        </div>
+
+        <!-- تب تهویه مطبوع -->
         <div id="hvac" class="tab-content" style="display: none;">
             <div class="grid">
                 <!-- محاسبه CFM -->
@@ -350,8 +351,7 @@
                     <button onclick="calculateDuctSize()">محاسبه</button>
                     <div id="duct-size-result" class="result"></div>
                 </div>
-
-                <!-- محاسبات سایکرومتریک -->
+                                <!-- محاسبات سایکرومتریک -->
                 <div class="card">
                     <h2>محاسبات سایکرومتریک</h2>
                     <div class="form-group">
@@ -414,8 +414,9 @@
                     <div id="gas-consumption-result" class="result"></div>
                 </div>
             </div>
-        </div>    
-   <!-- تب آبرسانی -->
+        </div>
+
+        <!-- تب آبرسانی -->
         <div id="water" class="tab-content" style="display: none;">
             <div class="grid">
                 <!-- محاسبه سایز لوله آب -->
@@ -462,13 +463,12 @@
                 </div>
             </div>
         </div>
-
-        <!-- تب تبدیل واحدها -->
+                <!-- تب تبدیل واحدها -->
         <div id="conversions" class="tab-content" style="display: none;">
             <div class="grid">
                 <!-- تبدیل دما -->
                 <div class="card">
-                    <h2>تبدیل واحد دما</h2>
+                    <h2>تبدیل دما</h2>
                     <div class="form-group">
                         <label>مقدار</label>
                         <input type="number" id="temp-value">
@@ -476,7 +476,7 @@
                     <div class="form-group">
                         <label>از واحد</label>
                         <select id="temp-from">
-                            <option value="C">سانتی‌گراد (°C)</option>
+                            <option value="C">سانتیگراد (°C)</option>
                             <option value="F">فارنهایت (°F)</option>
                             <option value="K">کلوین (K)</option>
                         </select>
@@ -484,18 +484,51 @@
                     <div class="form-group">
                         <label>به واحد</label>
                         <select id="temp-to">
-                            <option value="C">سانتی‌گراد (°C)</option>
+                            <option value="C">سانتیگراد (°C)</option>
                             <option value="F">فارنهایت (°F)</option>
                             <option value="K">کلوین (K)</option>
                         </select>
                     </div>
                     <button onclick="convertTemperature()">تبدیل</button>
+                    <button class="clear-button" onclick="clearForm('temp')">پاک کردن</button>
                     <div id="temp-result" class="result"></div>
+                </div>
+
+                <!-- تبدیل فشار -->
+                <div class="card">
+                    <h2>تبدیل فشار</h2>
+                    <div class="form-group">
+                        <label>مقدار</label>
+                        <input type="number" id="pressure-value">
+                    </div>
+                    <div class="form-group">
+                        <label>از واحد</label>
+                        <select id="pressure-from">
+                            <option value="pa">پاسکال (Pa)</option>
+                            <option value="kpa">کیلوپاسکال (kPa)</option>
+                            <option value="bar">بار (bar)</option>
+                            <option value="psi">PSI</option>
+                            <option value="mmhg">میلیمتر جیوه (mmHg)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>به واحد</label>
+                        <select id="pressure-to">
+                            <option value="pa">پاسکال (Pa)</option>
+                            <option value="kpa">کیلوپاسکال (kPa)</option>
+                            <option value="bar">بار (bar)</option>
+                            <option value="psi">PSI</option>
+                            <option value="mmhg">میلیمتر جیوه (mmHg)</option>
+                        </select>
+                    </div>
+                    <button onclick="convertPressure()">تبدیل</button>
+                    <button class="clear-button" onclick="clearForm('pressure')">پاک کردن</button>
+                    <div id="pressure-result" class="result"></div>
                 </div>
 
                 <!-- تبدیل دبی -->
                 <div class="card">
-                    <h2>تبدیل واحد دبی</h2>
+                    <h2>تبدیل دبی</h2>
                     <div class="form-group">
                         <label>مقدار</label>
                         <input type="number" id="flow-value">
@@ -503,72 +536,50 @@
                     <div class="form-group">
                         <label>از واحد</label>
                         <select id="flow-from">
-                            <option value="m3h">متر مکعب بر ساعت</option>
-                            <option value="lpm">لیتر بر دقیقه</option>
-                            <option value="gpm">گالن بر دقیقه</option>
+                            <option value="m3h">متر مکعب بر ساعت (m³/h)</option>
+                            <option value="m3s">متر مکعب بر ثانیه (m³/s)</option>
+                            <option value="lpm">لیتر بر دقیقه (L/min)</option>
+                            <option value="lps">لیتر بر ثانیه (L/s)</option>
+                            <option value="gpm">گالن بر دقیقه (GPM)</option>
+                            <option value="cfm">فوت مکعب بر دقیقه (CFM)</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>به واحد</label>
                         <select id="flow-to">
-                            <option value="m3h">متر مکعب بر ساعت</option>
-                            <option value="lpm">لیتر بر دقیقه</option>
-                            <option value="gpm">گالن بر دقیقه</option>
+                            <option value="m3h">متر مکعب بر ساعت (m³/h)</option>
+                            <option value="m3s">متر مکعب بر ثانیه (m³/s)</option>
+                            <option value="lpm">لیتر بر دقیقه (L/min)</option>
+                            <option value="lps">لیتر بر ثانیه (L/s)</option>
+                            <option value="gpm">گالن بر دقیقه (GPM)</option>
+                            <option value="cfm">فوت مکعب بر دقیقه (CFM)</option>
                         </select>
                     </div>
                     <button onclick="convertFlow()">تبدیل</button>
+                    <button class="clear-button" onclick="clearForm('flow')">پاک کردن</button>
                     <div id="flow-result" class="result"></div>
                 </div>
             </div>
         </div>
-    </div>    
-<script>
+    </div>
+        <script>
         // نمایش تب‌ها
         function showTab(tabName, element) {
+            // مخفی کردن همه تب‌ها
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.style.display = 'none';
             });
             
+            // نمایش تب انتخاب شده
             document.getElementById(tabName).style.display = 'block';
             
+            // حذف کلاس active از همه تب‌ها
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             
+            // اضافه کردن کلاس active به تب انتخاب شده
             element.classList.add('active');
-        }
-
-        // اجرای کد در زمان لود صفحه
-        document.addEventListener('DOMContentLoaded', function() {
-            // نمایش تب پیش‌فرض (محاسبات پایه)
-            document.getElementById('calculations').style.display = 'block';
-            
-            // اضافه کردن Event Listener برای کلیدهای Enter
-            document.querySelectorAll('input[type="number"]').forEach(input => {
-                input.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        const button = this.closest('.card').querySelector('button:not(.clear-button)');
-                        if (button) button.click();
-                    }
-                });
-            });
-
-            // اضافه کردن دکمه پاک کردن به هر کارت
-            document.querySelectorAll('.card').forEach(card => {
-                const clearButton = document.createElement('button');
-                clearButton.textContent = 'پاک کردن';
-                clearButton.className = 'clear-button';
-                clearButton.onclick = () => clearForm(card);
-                card.appendChild(clearButton);
-            });
-        });
-
-        // تابع پاک کردن فرم‌ها
-        function clearForm(cardElement) {
-            cardElement.querySelectorAll('input').forEach(input => {
-                input.value = '';
-            });
-            cardElement.querySelector('.result').textContent = '';
         }
 
         // محاسبات پایه
@@ -629,225 +640,14 @@
             }
 
             const volume = area * height;
-            const deltaT = insideTemp - outsideTemp;
-            const heatLoad = (volume * factor * deltaT) / 1000; // کیلووات
+            const deltaTTemp = insideTemp - outsideTemp;
+            const heatLoad = volume * factor * deltaTTemp / 1000; // تبدیل به کیلووات
 
             document.getElementById('heat-load-result').textContent = 
                 `بار حرارتی: ${heatLoad.toFixed(2)} کیلووات`;
         }
 
-        function calculateExpansionTank() {
-            const systemVolume = parseFloat(document.getElementById('exp-system-volume').value);
-            const initialTemp = parseFloat(document.getElementById('exp-initial-temp').value);
-            const finalTemp = parseFloat(document.getElementById('exp-final-temp').value);
-            const initialPressure = parseFloat(document.getElementById('exp-initial-pressure').value);
-            const finalPressure = parseFloat(document.getElementById('exp-final-pressure').value);
-
-            if (!systemVolume || !initialTemp || !finalTemp || !initialPressure || !finalPressure) {
-                alert('لطفاً تمام مقادیر را وارد کنید');
-                return;
-            }
-
-            const expansionFactor = 0.0004 * (finalTemp - initialTemp);
-            const tankVolume = systemVolume * expansionFactor * (finalPressure + 1) / 
-                              (finalPressure - initialPressure);
-
-            document.getElementById('expansion-tank-result').textContent = 
-                `حجم منبع انبساط: ${tankVolume.toFixed(1)} لیتر`;
-        }
-
-        function calculateRadiator() {
-            const heatLoad = parseFloat(document.getElementById('rad-heat-load').value);
-            const radType = document.getElementById('rad-type').value;
-
-            if (!heatLoad) {
-                alert('لطفاً بار حرارتی را وارد کنید');
-                return;
-            }
-
-            const kcal = heatLoad * 860;
-            const elements = kcal / parseInt(radType);
-
-            document.getElementById('radiator-result').textContent = 
-                `تعداد پره/المنت مورد نیاز: ${Math.ceil(elements)} عدد`;
-        }
-
-        // محاسبات تهویه مطبوع
-        function calculateCFM() {
-            const area = parseFloat(document.getElementById('cfm-area').value);
-            const height = parseFloat(document.getElementById('cfm-height').value);
-            const ach = parseFloat(document.getElementById('cfm-ach').value);
-
-            if (!area || !height || !ach) {
-                alert('لطفاً تمام مقادیر را وارد کنید');
-                return;
-            }
-
-            const volume = area * height * 35.315; // تبدیل به فوت مکعب
-            const cfm = (volume * ach) / 60;
-
-            document.getElementById('cfm-result').textContent = 
-                `دبی هوای مورد نیاز: ${cfm.toFixed(0)} CFM`;
-        }
-
-        function calculateDuctSize() {
-            const cfm = parseFloat(document.getElementById('duct-cfm').value);
-            const velocity = parseFloat(document.getElementById('duct-velocity').value);
-            const ductType = document.getElementById('duct-type').value;
-
-            if (!cfm || !velocity) {
-                alert('لطفاً تمام مقادیر را وارد کنید');
-                return;
-            }
-
-            const area = cfm / velocity;
-
-            if (ductType === 'round') {
-                const diameter = Math.sqrt((4 * area) / Math.PI) * 12;
-                document.getElementById('duct-size-result').textContent = 
-                    `قطر کانال: ${diameter.toFixed(1)} اینچ`;
-            } else {
-                const height = Math.sqrt((area * 144) / 1.5);
-                const width = height * 1.5;
-                document.getElementById('duct-size-result').textContent = 
-                    `ابعاد کانال: ${width.toFixed(1)} × ${height.toFixed(1)} اینچ`;
-            }
-        }
-
-        function calculatePsychrometrics() {
-            const dbTemp = parseFloat(document.getElementById('psy-db-temp').value);
-            const rh = parseFloat(document.getElementById('psy-rh').value);
-            const altitude = parseFloat(document.getElementById('psy-altitude').value);
-
-            if (!dbTemp || !rh || rh > 100) {
-                alert('لطفاً مقادیر صحیح را وارد کنید');
-                return;
-            }
-
-            const saturationPressure = 6.11 * Math.exp((17.27 * dbTemp) / (237.3 + dbTemp));
-            const actualPressure = saturationPressure * (rh / 100);
-            const humidityRatio = 0.622 * (actualPressure / (101.325 - actualPressure));
-            const wetBulb = dbTemp * Math.atan(0.151977 * Math.pow(rh + 8.313659, 0.5)) + 
-                            Math.atan(dbTemp + rh) - Math.atan(rh - 1.676331) +
-                            0.00391838 * Math.pow(rh, 1.5) * Math.atan(0.023101 * rh) - 4.686035;
-
-            let result = `دمای تر: ${wetBulb.toFixed(1)} °C\n`;
-            result += `نسبت رطوبت: ${(humidityRatio * 1000).toFixed(2)} g/kg`;
-            
-            document.getElementById('psychrometrics-result').textContent = result;
-        }
-
-        // محاسبات گازرسانی
-        function calculateGasPipe() {
-            const flow = parseFloat(document.getElementById('gas-flow').value);
-            const length = parseFloat(document.getElementById('gas-length').value);
-            const pressureDrop = parseFloat(document.getElementById('gas-pressure-drop').value);
-
-            if (!flow || !length || !pressureDrop) {
-                alert('لطفاً تمام مقادیر را وارد کنید');
-                return;
-            }
-
-            const diameter = Math.pow((flow * flow * length) / (pressureDrop * 6.2), 0.2) * 25.4;
-            const standardSizes = [15, 20, 25, 32, 40, 50, 65, 80, 100];
-            let selectedSize = standardSizes[0];
-            
-            for (let size of standardSizes) {
-                if (diameter <= size) {
-                    selectedSize = size;
-                    break;
-                }
-            }
-
-            document.getElementById('gas-pipe-result').textContent = 
-                `سایز لوله پیشنهادی: ${selectedSize} میلی‌متر`;
-        }
-
-        function calculateGasConsumption() {
-            const appliance = document.getElementById('gas-appliance').value;
-            const capacity = parseFloat(document.getElementById('gas-capacity').value);
-
-            if (!capacity) {
-                alert('لطفاً ظرفیت حرارتی را وارد کنید');
-                return;
-            }
-
-            // ضریب تبدیل کیلوکالری به متر مکعب گاز طبیعی
-            const factor = 0.0001;
-            const consumption = capacity * factor;
-
-            document.getElementById('gas-consumption-result').textContent = 
-                `مصرف گاز: ${consumption.toFixed(2)} متر مکعب بر ساعت`;
-        }
-
-        // محاسبات آبرسانی
-        function calculateWaterPipe() {
-            const fu = parseFloat(document.getElementById('water-fu').value);
-            const pipeType = document.getElementById('water-pipe-type').value;
-            const velocity = parseFloat(document.getElementById('water-velocity').value);
-
-            if (!fu || !velocity) {
-                alert('لطفاً تمام مقادیر را وارد کنید');
-                return;
-            }
-
-            // تبدیل FU به GPM
-            const gpm = Math.sqrt(fu);
-            // تبدیل به متر مکعب بر ساعت
-            const flow = gpm * 0.227;
-            
-            // محاسبه قطر با استفاده از معادله پیوستگی
-            const diameter = Math.sqrt((4 * flow) / (Math.PI * velocity * 3600)) * 1000;
-
-            let standardSizes;
-            switch(pipeType) {
-                case 'ppr':
-                    standardSizes = [20, 25, 32, 40, 50, 63];
-                    break;
-                case 'pex':
-                    standardSizes = [16, 20, 25, 32, 40];
-                    break;
-                case 'copper':
-                    standardSizes = [15, 22, 28, 35, 42, 54];
-                    break;
-                case 'galvanized':
-                    standardSizes = [15, 20, 25, 32, 40, 50];
-                    break;
-                default:
-                    standardSizes = [20, 25, 32, 40, 50];
-            }
-
-            let selectedSize = standardSizes[0];
-            for (let size of standardSizes) {
-                if (diameter <= size) {
-                    selectedSize = size;
-                    break;
-                }
-            }
-
-            document.getElementById('water-pipe-result').textContent = 
-                `سایز لوله پیشنهادی: ${selectedSize} میلی‌متر`;
-        }
-
-        function calculateTankVolume() {
-            const units = parseFloat(document.getElementById('tank-units').value);
-            const perCapita = parseFloat(document.getElementById('tank-per-capita').value);
-            const storageFactor = parseFloat(document.getElementById('tank-storage-factor').value);
-
-            if (!units || !perCapita || !storageFactor) {
-                alert('لطفاً تمام مقادیر را وارد کنید');
-                return;
-            }
-
-            const population = units * 4; // فرض متوسط 4 نفر در هر واحد
-            const dailyConsumption = population * perCapita;
-            const tankVolume = (dailyConsumption * storageFactor) / 24;
-
-            document.getElementById('tank-volume-result').textContent = 
-                `حجم مخزن مورد نیاز: ${tankVolume.toFixed(0)} لیتر`;
-        }
-
-        // توابع تبدیل واحدها
+        // تبدیل واحدها
         function convertTemperature() {
             const value = parseFloat(document.getElementById('temp-value').value);
             const fromUnit = document.getElementById('temp-from').value;
@@ -859,64 +659,39 @@
             }
 
             let result;
-            if (fromUnit === toUnit) {
-                result = value;
-            } else if (fromUnit === 'C' && toUnit === 'F') {
-                result = (value * 9/5) + 32;
-            } else if (fromUnit === 'C' && toUnit === 'K') {
-                result = value + 273.15;
-            } else if (fromUnit === 'F' && toUnit === 'C') {
-                result = (value - 32) * 5/9;
-            } else if (fromUnit === 'F' && toUnit === 'K') {
-                result = (value - 32) * 5/9 + 273.15;
-            } else if (fromUnit === 'K' && toUnit === 'C') {
-                result = value - 273.15;
-            } else if (fromUnit === 'K' && toUnit === 'F') {
-                result = (value - 273.15) * 9/5 + 32;
+            // تبدیل به سانتیگراد
+            let celsius;
+            switch(fromUnit) {
+                case 'C': celsius = value; break;
+                case 'F': celsius = (value - 32) * 5/9; break;
+                case 'K': celsius = value - 273.15; break;
+            }
+
+            // تبدیل از سانتیگراد به واحد مقصد
+            switch(toUnit) {
+                case 'C': result = celsius; break;
+                case 'F': result = (celsius * 9/5) + 32; break;
+                case 'K': result = celsius + 273.15; break;
             }
 
             document.getElementById('temp-result').textContent = 
-                `نتیجه: ${result.toFixed(2)} ${toUnit}°`;
+                `نتیجه: ${result.toFixed(2)} °${toUnit}`;
         }
 
-        function convertFlow() {
-            const value = parseFloat(document.getElementById('flow-value').value);
-            const fromUnit = document.getElementById('flow-from').value;
-            const toUnit = document.getElementById('flow-to').value;
-
-            if (!value) {
-                alert('لطفاً مقدار را وارد کنید');
-                return;
-            }
-
-            // تبدیل به m³/h
-            let baseValue;
-            switch(fromUnit) {
-                case 'm3h': baseValue = value; break;
-                case 'lpm': baseValue = value * 0.06; break;
-                case 'gpm': baseValue = value * 0.227; break;
-            }
-
-            // تبدیل از m³/h به واحد مقصد
-            let result;
-            switch(toUnit) {
-                case 'm3h': result = baseValue; break;
-                case 'lpm': result = baseValue / 0.06; break;
-                case 'gpm': result = baseValue / 0.227; break;
-            }
-
-            document.getElementById('flow-result').textContent = 
-                `نتیجه: ${result.toFixed(2)} ${getFlowUnitText(toUnit)}`;
+        // پاک کردن فرم‌ها
+        function clearForm(formId) {
+            const card = document.getElementById(`${formId}-value`).closest('.card');
+            card.querySelectorAll('input').forEach(input => {
+                input.value = '';
+            });
+            card.querySelector('.result').textContent = '';
         }
 
-        function getFlowUnitText(unit) {
-            switch(unit) {
-                case 'm3h': return 'متر مکعب بر ساعت';
-                case 'lpm': return 'لیتر بر دقیقه';
-                case 'gpm': return 'گالن بر دقیقه';
-                default: return unit;
-            }
-        }
+        // اجرای کد در زمان لود صفحه
+        document.addEventListener('DOMContentLoaded', function() {
+            // نمایش تب پیش‌فرض (محاسبات پایه)
+            document.getElementById('calculations').style.display = 'block';
+        });
     </script>
 </body>
 </html>
