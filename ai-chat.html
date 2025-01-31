@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Bot with Gemini</title>
+    <title>ربات چت با جیمینی</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Vazirmatn', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #f4f4f4;
+            direction: rtl;
         }
         .chat-container {
             width: 400px;
@@ -30,11 +31,11 @@
             margin: 5px 0;
         }
         .user-message {
-            text-align: right;
+            text-align: left;
             background-color: #d1e7dd;
         }
         .bot-message {
-            text-align: left;
+            text-align: right;
             background-color: #f8d7da;
         }
         .input-container {
@@ -48,7 +49,7 @@
         }
         button {
             padding: 10px;
-            margin-left: 5px;
+            margin-right: 5px;
             background-color: #007bff;
             color: white;
             border: none;
@@ -59,13 +60,14 @@
             background-color: #0056b3;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/vazirmatn@33.003/font-face.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div class="chat-container">
         <div class="messages" id="messages"></div>
         <div class="input-container">
-            <input type="text" id="userInput" placeholder="Type your message...">
-            <button onclick="sendMessage()">Send</button>
+            <input type="text" id="userInput" placeholder="پیام خود را بنویسید...">
+            <button onclick="sendMessage()">ارسال</button>
         </div>
     </div>
 
@@ -86,7 +88,8 @@
         function fetchBotResponse(message) {
             const data = {
                 prompt: {
-                    text: message
+                    text: message,
+                    languageCode: "fa"
                 },
                 temperature: 0.7,
                 maxOutputTokens: 256,
@@ -107,8 +110,8 @@
                 addMessage(botResponse, 'bot-message');
             })
             .catch(error => {
-                console.error('Error fetching bot response:', error);
-                addMessage('Sorry, I encountered an error.', 'bot-message');
+                console.error('خطا در دریافت پاسخ ربات:', error);
+                addMessage('متاسفانه خطایی رخ داد.', 'bot-message');
             });
         }
 
