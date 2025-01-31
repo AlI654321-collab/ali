@@ -60,7 +60,8 @@
             background-color: #0056b3;
         }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/vazirmatn@33.003/font-face.css" rel="stylesheet" type="text/css" />
+    <!-- از فونت پیش‌فرض مرورگر استفاده کنید -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="chat-container">
@@ -85,7 +86,7 @@
             fetchBotResponse(userInput);
         }
 
-        function fetchBotResponse(message) {
+        async function fetchBotResponse(message) {
             const data = {
                 prompt: {
                     text: message,
@@ -97,22 +98,26 @@
                 topK: 40
             };
 
-            fetch(`${apiUrl}?key=${apiKey}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(result => {
+            try {
+                const response = await fetch(`${apiUrl}?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error fetching bot response: ${response.statusText}`);
+                }
+
+                const result = await response.json();
                 const botResponse = result.candidates[0].output;
                 addMessage(botResponse, 'bot-message');
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('خطا در دریافت پاسخ ربات:', error);
                 addMessage('متاسفانه خطایی رخ داد.', 'bot-message');
-            });
+            }
         }
 
         function addMessage(text, className) {
