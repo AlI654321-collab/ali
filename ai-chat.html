@@ -1,222 +1,105 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>دستیار هوشمند تاسیسات</title>
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css">
+    <title>Chat Bot</title>
     <style>
-        :root {
-            --primary: #2563eb;
-            --secondary: #3b82f6;
-            --background: #f1f5f9;
-            --surface: #ffffff;
-            --text: #1e293b;
-            --border: #e2e8f0;
-            --shadow: rgba(0, 0, 0, 0.1);
-            --error: #ef4444;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Vazirmatn', sans-serif;
-        }
-
         body {
-            background-color: var(--background);
-            color: var(--text);
-            line-height: 1.6;
-            padding: 1rem;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding: 2rem;
-            background: var(--surface);
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px var(--shadow);
-        }
-
-        .header h1 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .chat-card {
-            background: var(--surface);
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px var(--shadow);
-        }
-
-        .chat-container {
-            height: 60vh;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            background: #f8fafc;
-        }
-
-        .chat-input {
+            font-family: Arial, sans-serif;
             display: flex;
-            gap: 0.5rem;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
         }
-
-        .chat-input input {
-            flex: 1;
-            padding: 0.75rem;
-            border: 1px solid var(--border);
-            border-radius: 0.5rem;
-            font-size: 1rem;
+        .chat-container {
+            width: 400px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
-        .chat-input input:focus {
-            outline: none;
-            border-color: var(--primary);
+        .messages {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 10px;
         }
-
-        button {
-            background: var(--primary);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        button:hover {
-            background: var(--secondary);
-        }
-
         .message {
-            margin-bottom: 1rem;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            max-width: 80%;
-            word-wrap: break-word;
+            padding: 5px;
+            margin: 5px 0;
         }
-
-        .message.user {
-            background: var(--primary);
+        .user-message {
+            text-align: right;
+            background-color: #d1e7dd;
+        }
+        .bot-message {
+            text-align: left;
+            background-color: #f8d7da;
+        }
+        .input-container {
+            display: flex;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            margin-left: 5px;
+            background-color: #007bff;
             color: white;
-            margin-left: auto;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
-
-        .message.ai {
-            background: white;
-            border: 1px solid var(--border);
-            margin-right: auto;
-        }
-
-        .message.error {
-            background: var(--error);
-            color: white;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .back-button {
-            display: inline-block;
-            margin-bottom: 1rem;
-            text-decoration: none;
-            color: var(--primary);
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="index.html" class="back-button">← بازگشت به صفحه اصلی</a>
-        
-        <div class="header">
-            <h1>دستیار هوشمند تاسیسات</h1>
-            <p>از من هر سوالی در مورد تاسیسات مکانیکی ساختمان دارید بپرسید</p>
-        </div>
-
-        <div class="chat-card">
-            <div id="chat-messages" class="chat-container"></div>
-            <div class="chat-input">
-                <input type="text" id="user-input" placeholder="سوال خود را بپرسید..." onkeypress="if(event.key === 'Enter') sendMessage()">
-                <button onclick="sendMessage()">ارسال</button>
-            </div>
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
         </div>
     </div>
 
     <script>
-        const API_KEY = 'AIzaSyAttGmQDHU4R5bz9gIzxU9zfQ_DCRaaErU';
+        const botResponses = [
+            "Hello! How can I help you today?",
+            "I'm just a bot, but I'll do my best to assist you.",
+            "Can you provide more details?",
+            "Thank you for your question!",
+            "I'm not sure, let me check.",
+            "Have a great day!"
+        ];
 
-        async function sendMessage() {
-            const input = document.getElementById('user-input');
-            const message = input.value.trim();
-            
-            if (!message) return;
-            
-            input.value = '';
-            addMessage('user', message);
+        function sendMessage() {
+            const userInput = document.getElementById('userInput').value.trim();
+            if (!userInput) return;
 
-            try {
-                // استفاده از CORS Proxy
-                const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-                const targetUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
-                
-                const response = await fetch(proxyUrl + targetUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_KEY}`,
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{
-                                text: message + "\n\nلطفا به فارسی پاسخ دهید و تمرکز پاسخ روی مباحث تاسیسات مکانیکی ساختمان باشد."
-                            }]
-                        }]
-                    })
-                });
+            addMessage(userInput, 'user-message');
+            document.getElementById('userInput').value = '';
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const data = await response.json();
-                if (data.candidates && data.candidates[0] && data.candidates[0].content) {
-                    const reply = data.candidates[0].content.parts[0].text;
-                    addMessage('ai', reply);
-                } else {
-                    throw new Error('Invalid response format');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                addMessage('error', 'متاسفانه مشکلی در ارتباط با هوش مصنوعی پیش آمده است. لطفاً دوباره تلاش کنید.');
-            }
+            setTimeout(() => {
+                const botResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
+                addMessage(botResponse, 'bot-message');
+            }, 1000);
         }
 
-        function addMessage(type, text) {
-            const messages = document.getElementById('chat-messages');
+        function addMessage(text, className) {
+            const messagesDiv = document.getElementById('messages');
             const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${type}`;
+            messageDiv.className = `message ${className}`;
             messageDiv.textContent = text;
-            messages.appendChild(messageDiv);
-            messages.scrollTop = messages.scrollHeight;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
-
-        // پیام خوش‌آمدگویی
-        document.addEventListener('DOMContentLoaded', function() {
-            addMessage('ai', 'سلام! من دستیار هوشمند تاسیسات هستم. چطور می‌توانم کمکتون کنم؟');
-        });
     </script>
 </body>
 </html>
